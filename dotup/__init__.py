@@ -30,7 +30,7 @@ def update_symlink(filename, force=None):
 def dotup(force):
     non_dotfiles = []
     home = str(Path.home())
-    for filename in os.listdir(f'{home}/dotfiles'):
+    for filename in filter(os.path.isfile, os.listdir(f'{home}/dotfiles')):
         if filename[0] != '.':
             non_dotfiles.append(filename)
             continue
