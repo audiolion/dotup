@@ -1,3 +1,0 @@
-Click==7.0
-colorama==0.4.1
-crayons==0.1.2
