@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dotup"
-version = "0.2.0"
+version = "0.2.1"
 description = "Symlink your dotfiles with ease."
 authors = ["Ryan Castner <castner.rr@gmail.com>"]
 readme = "README.md"
