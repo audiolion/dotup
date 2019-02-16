@@ -5,7 +5,9 @@
   <i>Symlink your dotfiles with ease.</i>
 </h5>
 
- ![Dotfiles Example](https://pbs.twimg.com/media/Dzj36MyWwAEAyHF.png:large)
+<p align="center">
+ <img src="https://pbs.twimg.com/media/Dzj36MyWwAEAyHF.png:large" alt="Dotfiles Example Usage" />
+</p>
 
 ---
 
