@@ -5,6 +5,8 @@
   <i>Symlink your dotfiles with ease.</i>
 </h5>
 
+ ![Dotfiles Example](https://pbs.twimg.com/media/Dzj36MyWwAEAyHF.png:large)
+
 ---
 
 Dotup will generate symlinks to your dotfiles and place them in your home directory through a convenient CLI.
