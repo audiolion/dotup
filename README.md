@@ -17,10 +17,12 @@ $ pip install dotup
 
 ### Usage
 
-By default **dotup** expects to find a directory called `dotfiles` in your home directory `~/dotfiles`. Support for other dotfile directory paths is coming soon.
+By default, _dotup_ expects to find a directory called `dotfiles` in your home directory (`~/dotfiles`).
 
 ```shell
 $ dotup
+# specify different dotfiles directory location at ~/dots
+$ dotup --directory dots
 ```
 
 To force symlink creation you can pass the `-f`, or `--force` flag.
