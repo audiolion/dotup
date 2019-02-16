@@ -1,9 +1,12 @@
 [tool.poetry]
 name = "dotup"
 version = "0.1.0"
-description = "Symlink your dotfiles with ease"
+description = "Symlink your dotfiles with ease."
 authors = ["Ryan Castner <castner.rr@gmail.com>"]
 readme = "README.md"
+homepage = "https://github.com/audiolion/dotup"
+repository = "https://github.com/audiolion/dotup"
+keywords = ["dotfiles", "cli", "symlink", "updater", "update"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
