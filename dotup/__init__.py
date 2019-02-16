@@ -60,7 +60,7 @@ def dotup(directory, force):
         )
         return
 
-    print(f'\nSymlinking dotfiles found in {crayons.cyan(f"{home}/{directory}")}')
+    print(f'\nSymlinking dotfiles found in {crayons.cyan(f"{home}/{directory}")}\n')
 
     non_dotfiles = []
     dotfiles = get_dotfiles(home, directory)
