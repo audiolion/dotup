@@ -23,7 +23,7 @@ def update_symlink(filename, force=None):
     return False
 
 
-@click.command('dotup')
+@click.command()
 @click.option(
     '--force', '-f', default=False, help="Overwrite existing symlinks.", type=bool
 )
