@@ -23,14 +23,24 @@ def update_symlink(filename, force=None):
     return False
 
 
+def get_dotfiles(home):
+    dirlist = map(
+        lambda filename: f'{home}/dotfiles/{filename}', os.listdir(f'{home}/dotfiles')
+    )
+    dotfiles_paths = filter(os.path.isfile, dirlist)
+    dotfiles = map(lambda path: path.replace(f'{home}/dotfiles/', ''), dotfiles_paths)
+    return dotfiles
+
+
 @click.command()
 @click.option(
     '--force', '-f', default=False, help="Overwrite existing symlinks.", type=bool
 )
 def dotup(force):
-    non_dotfiles = []
     home = str(Path.home())
-    for filename in filter(os.path.isfile, os.listdir(f'{home}/dotfiles')):
+    non_dotfiles = []
+    dotfiles = get_dotfiles(home)
+    for filename in dotfiles:
         if filename[0] != '.':
             non_dotfiles.append(filename)
             continue
@@ -40,10 +50,13 @@ def dotup(force):
             print(f'Symlinked {crayons.red(filename)}@ -> {home}/dotfiles/{filename}')
         else:
             prompt_remove = input(
-                f'File already exists at {crayons.yellow(f"{home}/{filename}")}, overwrite it? [y/n] '
+                f'\nFile already exists at {crayons.yellow(f"{home}/{filename}")}, overwrite it? [y/n] '
             )
             if prompt_remove == 'y':
                 update_symlink(filename, True)
+                print(
+                    f'Symlinked {crayons.red(filename)}@ -> {home}/dotfiles/{filename}'
+                )
             else:
                 print(f'{crayons.magenta("Skipping")} {filename}')
 
