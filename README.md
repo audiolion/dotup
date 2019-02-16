@@ -5,7 +5,7 @@
   <i>Symlink your dotfiles with ease.</i>
 </h5>
 
-----------
+---
 
 Dotup will generate symlinks to your dotfiles and place them in your home directory through a convenient CLI.
 
@@ -16,6 +16,8 @@ $ pip install dotup
 ```
 
 ### Usage
+
+By default **dotup** expects to find a directory called `dotfiles` in your home directory `~/dotfiles`. Support for other dotfile directory paths is coming soon.
 
 ```shell
 $ dotup
@@ -28,6 +30,21 @@ $ dotup --force
 ```
 
 Help
+
 ```shell
 $ dotup --help
 ```
+
+### Development
+
+Pull requests are welcome, please consider creating an issue first about the change you would like to make.
+
+### Deploy
+
+To deploy a new version:
+
+1. Make a semantic version update to `dotup/__init__.py` and `pyproject.toml` files.
+2. Run `poetry-setup` see [poetry-setup](https://github.com/orsinium/poetry-setup) for installation
+3. Commit updated versions
+4. Run `poetry build`
+5. Run `poetry publish`
