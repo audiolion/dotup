@@ -1,15 +1,25 @@
 from pathlib import Path
 
 import pytest
+import click
+from click.testing import CliRunner
 
 from dotup import (
     __version__,
     get_dotfiles,
     check_dotfiles_directory_exists,
     update_symlink,
+    dotup,
 )
 
-dotfile_names = ['bashrc', 'bash_profile', 'zshrc', 'vimrc', 'gitconfig']
+dotfile_names = [
+    '.bashrc',
+    '.bash_profile',
+    '.zshrc',
+    '.vimrc',
+    '.gitconfig',
+    'README.md',
+]
 
 CONTENT = u'test'
 
@@ -71,6 +81,20 @@ def test_update_symlink_unsuccessful_symlink_file_exists(
     assert not update_symlink(dir_name, dotfile_names[1])
 
 
+def test_update_symlink_successful_symlink_file_exists_force(
+    dotfiles_dir, path_home_mock, tmp_path
+):
+    path, dir_name = dotfiles_dir()
+
+    f = path / dotfile_names[1]
+    f.write_text(CONTENT)
+
+    f = tmp_path / dotfile_names[1]
+    f.write_text(CONTENT)
+
+    assert update_symlink(dir_name, dotfile_names[1], True)
+
+
 def test_get_dotfiles(dotfiles_dir, create_dotfiles, tmp_path):
     path, dir_name = dotfiles_dir()
     create_dotfiles(path)
@@ -94,3 +118,35 @@ def test_check_dotfiles_directory_exists(dotfiles_dir, tmp_path):
     _, dir_name = dotfiles_dir()
     assert check_dotfiles_directory_exists(tmp_path, dir_name)
     assert not check_dotfiles_directory_exists(tmp_path, 'nonexistant-dir')
+
+
+def test_dotup(dotfiles_dir, create_dotfiles, path_home_mock, tmp_path):
+    path, dir_name = dotfiles_dir()
+    create_dotfiles(path)
+
+    runner = CliRunner()
+    result = runner.invoke(dotup)
+    assert result.exit_code == 0
+    assert 'Skipped' in result.output
+    assert 'Symlinked' in result.output
+
+    f = tmp_path / dotfile_names[0]
+    f.write_text(CONTENT)
+    f = tmp_path / dotfile_names[1]
+    f.write_text(CONTENT)
+    result = runner.invoke(dotup, input='y\nn\n')
+    assert result.exit_code == 0
+    assert 'File already exists at' in result.output
+    assert 'Skipped' in result.output
+    assert 'Skipping' in result.output
+    assert 'Symlinked' in result.output
+
+
+def test_dotup_directory_doesnt_exist(tmp_path, path_home_mock):
+    runner = CliRunner()
+    result = runner.invoke(dotup, ['--directory', 'nonexistant-dir'])
+    assert result.exit_code == 0
+    assert 'Error: no dotfile directory found at' in result.output
+    assert (
+        'Use dotup --directory to specify your dotfile directory name' in result.output
+    )

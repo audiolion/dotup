@@ -73,10 +73,10 @@ def dotup(directory, force):
                 f'Symlinked {crayons.red(filename)}@ -> {home}/{directory}/{filename}'
             )
         else:
-            prompt_remove = input(
-                f'\nFile already exists at {crayons.yellow(f"{home}/{filename}")}, overwrite it? [y/n] '
+            prompt_remove = click.confirm(
+                f'\nFile already exists at {crayons.yellow(f"{home}/{filename}")}, overwrite it?'
             )
-            if prompt_remove == 'y':
+            if prompt_remove:
                 update_symlink(directory, filename, True)
                 print(
                     f'Symlinked {crayons.red(filename)}@ -> {home}/{directory}/{filename}'
