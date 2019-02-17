@@ -27,7 +27,7 @@ DOTFILES_DIR_NAME = 'dotfiles'
 
 
 def test_version():
-    assert __version__ == '0.3.1'
+    assert __version__ == '0.3.2'
 
 
 @pytest.fixture
