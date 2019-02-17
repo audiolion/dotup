@@ -11,6 +11,8 @@
 
 ---
 
+[![CircleCI](https://circleci.com/gh/audiolion/dotup.svg?style=svg)](https://circleci.com/gh/audiolion/dotup) [![codecov](https://codecov.io/gh/audiolion/dotup/branch/master/graph/badge.svg)](https://codecov.io/gh/audiolion/dotup)
+
 Dotup will generate symlinks to your dotfiles and place them in your home directory through a convenient CLI.
 
 ### Install
