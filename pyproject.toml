@@ -16,6 +16,7 @@ click = "^7.0"
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
 pytest-cov = "^2.6"
+codecov = "^2.0"
 
 [tool.poetry.scripts]
 "dotup" = "dotup:dotup"

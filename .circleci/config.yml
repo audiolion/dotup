@@ -43,6 +43,7 @@ jobs:
           name: run tests
           command: |
             poetry run py.test --cov-report xml:test-reports --junitxml=/tmp/test-reports/pytest-results.xml --cov=dotup tests/
+            poetry run codecov
 
       - store_artifacts:
           path: test-reports
