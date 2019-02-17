@@ -22,19 +22,27 @@ jobs:
             - v1-dependencies-
 
       - run:
+          name: install poetry
+          command: |
+            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+            echo 'export PATH="$HOME/.poetry/bin:$PATH"' >> $BASH_ENV
+
+      - run:
           name: install dependencies
           command: |
+            poetry config settings.virtualenvs.in-project true
+            poetry config settings.virtualenvs.path ./
             poetry install
 
       - save_cache:
           paths:
-            - ./venv
+            - ".venv"
           key: v1-dependencies-{{ checksum "poetry.lock" }}
 
       - run:
           name: run tests
           command: |
-            poetry run py.test --cov-report html:test-reports --cov=dotup tests/
+            poetry run py.test --cov-report xml:test-reports --junitxml=/tmp/test-reports/pytest-results.xml --cov=dotup tests/
 
       - store_artifacts:
           path: test-reports
