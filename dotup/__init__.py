@@ -9,16 +9,16 @@ import click
 import crayons
 
 
-def update_symlink(filename, force=None):
+def update_symlink(directory, filename, force=None):
     force = False if force is None else force
     home = str(Path.home())
     try:
-        os.symlink(f'{home}/dotfiles/{filename}', f'{home}/{filename}')
+        os.symlink(f'{home}/{directory}/{filename}', f'{home}/{filename}')
         return True
     except FileExistsError:
         if force:
             os.remove(f'{home}/{filename}')
-            os.symlink(f'{home}/dotfiles/{filename}', f'{home}/{filename}')
+            os.symlink(f'{home}/{directory}/{filename}', f'{home}/{filename}')
             return True
     return False
 
@@ -28,10 +28,8 @@ def get_dotfiles(home, directory):
         lambda filename: f'{home}/{directory}/{filename}',
         os.listdir(f'{home}/{directory}'),
     )
-    dotfiles_paths = filter(os.path.isfile, dotfile_dirlist)
-    dotfiles = map(
-        lambda path: path.replace(f'{home}/{directory}/', ''), dotfiles_paths
-    )
+    dotfile_paths = filter(os.path.isfile, dotfile_dirlist)
+    dotfiles = map(lambda path: path.replace(f'{home}/{directory}/', ''), dotfile_paths)
     return dotfiles
 
 
@@ -69,7 +67,7 @@ def dotup(directory, force):
             non_dotfiles.append(filename)
             continue
 
-        success = update_symlink(filename, force)
+        success = update_symlink(directory, filename, force)
         if success:
             print(
                 f'Symlinked {crayons.red(filename)}@ -> {home}/{directory}/{filename}'
@@ -79,7 +77,7 @@ def dotup(directory, force):
                 f'\nFile already exists at {crayons.yellow(f"{home}/{filename}")}, overwrite it? [y/n] '
             )
             if prompt_remove == 'y':
-                update_symlink(filename, True)
+                update_symlink(directory, filename, True)
                 print(
                     f'Symlinked {crayons.red(filename)}@ -> {home}/{directory}/{filename}'
                 )

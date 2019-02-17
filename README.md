@@ -45,6 +45,14 @@ $ dotup --help
 
 Pull requests are welcome, please consider creating an issue first about the change you would like to make.
 
+#### Testing
+
+Run the test suite with this command:
+
+```shell
+$ poetry run py.test tests/
+```
+
 ### Deploy
 
 To deploy a new version:

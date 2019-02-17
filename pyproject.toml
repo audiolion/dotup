@@ -15,10 +15,11 @@ click = "^7.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
+pytest-cov = "^2.6"
 
+[tool.poetry.scripts]
+"dotup" = "dotup:dotup"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
-[tool.poetry.scripts]
-"dotup" = "dotup:dotup"
