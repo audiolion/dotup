@@ -92,4 +92,4 @@ def dotup(directory, force):
 
 
 if __name__ == "__main__":
-    dotup()
+    dotup()  # pragma: no cover
